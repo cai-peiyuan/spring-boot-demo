@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * <p>
  * 项目配置
+ * @Data注解为lombok注解自动生成getter和setter方法用
  * </p>
  *
  * @package: com.xkcoding.properties.property
