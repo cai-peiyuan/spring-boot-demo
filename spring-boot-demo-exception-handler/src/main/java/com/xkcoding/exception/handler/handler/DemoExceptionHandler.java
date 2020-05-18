@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * <p>
  * 统一异常处理
+ * 拦截所有的controller
  * </p>
  *
  * @package: com.xkcoding.exception.handler.handler
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @copyright: Copyright (c) 2018
  * @version: V1.0
  * @modified: yangkai.shen
+ *
  */
 @ControllerAdvice
 @Slf4j
