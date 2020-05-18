@@ -35,6 +35,7 @@ public class AopLog {
 
 	/**
 	 * 切入点
+     * 扫描指定包下指定类指定方法
 	 */
 	@Pointcut("execution(public * com.xkcoding.log.aop.controller.*Controller.*(..))")
 	public void log() {
