@@ -1,7 +1,10 @@
 package com.xkcoding.orm.mybatis.MapperAndPage;
 
+import com.xkcoding.orm.mybatis.MapperAndPage.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.jca.context.SpringContextResourceAdapter;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
@@ -21,7 +24,9 @@ import tk.mybatis.spring.annotation.MapperScan;
 @MapperScan(basePackages = {"com.xkcoding.orm.mybatis.MapperAndPage.mapper"})
 public class SpringBootDemoOrmMybatisMapperPageApplication {
 
+
     public static void main(String[] args) {
         SpringApplication.run(SpringBootDemoOrmMybatisMapperPageApplication.class, args);
+
     }
 }

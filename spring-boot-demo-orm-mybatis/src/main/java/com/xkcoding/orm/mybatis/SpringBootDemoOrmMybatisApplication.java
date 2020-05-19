@@ -1,5 +1,6 @@
 package com.xkcoding.orm.mybatis;
 
+import com.xkcoding.orm.mybatis.entity.User;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

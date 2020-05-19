@@ -24,7 +24,7 @@ import java.util.List;
 public interface DepartmentDao extends JpaRepository<Department, Long> {
     /**
      * 根据层级查询部门
-     *
+     * 自动根据方法名称创建sql条件语句
      * @param level 层级
      * @return 部门列表
      */

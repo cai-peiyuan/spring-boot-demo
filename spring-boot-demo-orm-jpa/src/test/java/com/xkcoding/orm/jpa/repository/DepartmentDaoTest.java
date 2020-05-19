@@ -52,8 +52,8 @@ public class DepartmentDaoTest extends SpringBootDemoOrmJpaApplicationTests {
             departmentList.add(testSave1_1_1);
             departmentDao.saveAll(departmentList);
 
-            Collection<Department> deptall = departmentDao.findAll();
-            log.debug("【部门】= {}", JSONArray.toJSONString((List) deptall));
+            List<Department> deptall = departmentDao.findAll();
+            log.debug("【部门】= {}", JSONArray.toJSONString(deptall));
         }
 
 
