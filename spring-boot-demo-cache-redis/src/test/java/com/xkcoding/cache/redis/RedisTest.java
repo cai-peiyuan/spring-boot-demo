@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import java.io.Serializable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
 /**
@@ -41,7 +42,32 @@ public class RedisTest extends SpringBootDemoCacheRedisApplicationTests {
     public void get() {
         // 测试线程安全，程序结束查看redis中count的值是否为1000
         ExecutorService executorService = Executors.newFixedThreadPool(1000);
-        IntStream.range(0, 1000).forEach(i -> executorService.execute(() -> stringRedisTemplate.opsForValue().increment("count", 1)));
+        IntStream.range(0, 1000).forEach(
+            j -> executorService.execute(
+                () -> stringRedisTemplate.opsForValue().increment("count", 1)
+            )
+        );
+
+        /**
+         * 另外一种写法
+         */
+        IntStream.range(0, 1000).forEach(
+            new IntConsumer() {
+                @Override
+                public void accept(int value) {
+                    executorService.execute(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                log.error("  log ++++++++++++++++++++++ "+ value);
+                                stringRedisTemplate.opsForValue().increment("count", 1);
+                            }
+                        }
+                    );
+                }
+            }
+        );
+
 
         stringRedisTemplate.opsForValue().set("k1", "v1");
         String k1 = stringRedisTemplate.opsForValue().get("k1");
