@@ -55,7 +55,7 @@ public class UserServiceTest extends SpringBootDemoOrmMybatisPlusApplicationTest
     @Test
     public void testSaveList() {
         List<User> userList = Lists.newArrayList();
-        for (int i = 4; i < 14; i++) {
+        for (int i = 4; i < 14000; i++) {
             String salt = IdUtil.fastSimpleUUID();
             User user = User.builder().name("testSave" + i).password(SecureUtil.md5("123456" + salt)).salt(salt).email("testSave" + i + "@xkcoding.com").phoneNumber("1730000000" + i).status(1).lastLoginTime(new DateTime()).build();
             userList.add(user);
@@ -107,7 +107,7 @@ public class UserServiceTest extends SpringBootDemoOrmMybatisPlusApplicationTest
      */
     @Test
     public void testQueryAll() {
-        List<User> list = userService.list(new QueryWrapper<>());
+        List<User> list = userService.list(new QueryWrapper<User>().lambda().eq(User::getId, 1L));
         Assert.assertTrue(CollUtil.isNotEmpty(list));
         log.debug("【list】= {}", list);
     }
@@ -118,10 +118,12 @@ public class UserServiceTest extends SpringBootDemoOrmMybatisPlusApplicationTest
     @Test
     public void testQueryByPageAndSort() {
         initData();
-        int count = userService.count(new QueryWrapper<>());
-        Page<User> userPage = new Page<>(1, 5);
+        QueryWrapper qw = new QueryWrapper<>();
+        int count = userService.count(qw);
+        Page<User> userPage = new Page<User>(1, 5);
         userPage.setDesc("id");
-        IPage<User> page = userService.page(userPage, new QueryWrapper<>());
+        IPage<User> page = userService.page(userPage, qw);
+        page.getTotal();
         Assert.assertEquals(5, page.getSize());
         Assert.assertEquals(count, page.getTotal());
         log.debug("【page.getRecords()】= {}", page.getRecords());

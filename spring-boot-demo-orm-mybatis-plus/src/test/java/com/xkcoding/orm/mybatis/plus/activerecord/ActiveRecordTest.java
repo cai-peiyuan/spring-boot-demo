@@ -25,11 +25,14 @@ public class ActiveRecordTest extends SpringBootDemoOrmMybatisPlusApplicationTes
      */
     @Test
     public void testActiveRecordInsert() {
-        Role role = new Role();
-        role.setName("VIP");
-        Assert.assertTrue(role.insert());
-        // 成功直接拿会写的 ID
-        log.debug("【role】= {}", role);
+        for(int i =0 ; i< 100;i++){
+
+            Role role = new Role();
+            role.setName("VIP"+i);
+            Assert.assertTrue(role.insert());
+            // 成功直接拿会写的 ID
+            log.debug("【role】= {}", role);
+        }
     }
 
     /**
@@ -38,7 +41,9 @@ public class ActiveRecordTest extends SpringBootDemoOrmMybatisPlusApplicationTes
     @Test
     public void testActiveRecordUpdate() {
         Assert.assertTrue(new Role().setId(1L).setName("管理员-1").updateById());
-        Assert.assertTrue(new Role().update(new UpdateWrapper<Role>().lambda().set(Role::getName, "普通用户-1").eq(Role::getId, 2)));
+        Assert.assertTrue(new Role().update(
+            new UpdateWrapper<Role>().lambda().set(Role::getName, "普通用户-2").eq(Role::getId, 2)
+        ));
     }
 
     /**
@@ -46,9 +51,16 @@ public class ActiveRecordTest extends SpringBootDemoOrmMybatisPlusApplicationTes
      */
     @Test
     public void testActiveRecordSelect() {
-        Assert.assertEquals("管理员", new Role().setId(1L).selectById().getName());
-        Role role = new Role().selectOne(new QueryWrapper<Role>().lambda().eq(Role::getId, 2));
-        Assert.assertEquals("普通用户", role.getName());
+        Assert.assertEquals("管理员",
+            new Role().setId(1L).selectById().getName()
+        );
+        Role role = new Role().selectOne(
+            new QueryWrapper<Role>().lambda().eq(Role::getId, 2)
+        );
+
+        Assert.assertEquals("普通用户",
+            role.getName()
+        );
         List<Role> roles = new Role().selectAll();
         Assert.assertTrue(roles.size() > 0);
         log.debug("【roles】= {}", roles);
