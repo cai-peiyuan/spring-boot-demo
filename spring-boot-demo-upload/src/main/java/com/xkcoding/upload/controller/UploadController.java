@@ -99,6 +99,7 @@ public class UploadController {
 				return Dict.create().set("code", 500).set("message", "文件上传失败");
 			}
 		} catch (IOException e) {
+		    e.printStackTrace();
 			log.error("【文件上传至七牛云】失败，绝对路径：{}", localFilePath);
 			return Dict.create().set("code", 500).set("message", "文件上传失败");
 		}
