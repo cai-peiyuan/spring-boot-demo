@@ -39,7 +39,7 @@ public class TaskConfig implements SchedulingConfigurer {
      * {@code spring.task.scheduling.thread-name-prefix=Job-Thread- } - Prefix to use for the names of newly created threads.
      * {@link org.springframework.boot.autoconfigure.task.TaskSchedulingProperties}
      */
-    @Bean
+    //@Bean
     public Executor taskExecutor() {
         return new ScheduledThreadPoolExecutor(20, new BasicThreadFactory.Builder().namingPattern("Job-Thread-%d").build());
     }

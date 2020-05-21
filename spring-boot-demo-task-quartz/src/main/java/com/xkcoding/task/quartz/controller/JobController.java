@@ -49,6 +49,7 @@ public class JobController {
         try {
             jobService.addJob(form);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(ApiResponse.msg(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
